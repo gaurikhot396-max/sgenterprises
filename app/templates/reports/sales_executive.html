@@ -1,0 +1,205 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.report-container{
+max-width:1000px;
+margin:25px auto;
+}
+
+.report-card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.report-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.report-header h2{
+font-size:18px;
+font-weight:600;
+color:#333;
+}
+
+.print-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 14px;
+border-radius:6px;
+font-size:12px;
+cursor:pointer;
+}
+
+.print-btn:hover{
+background:#5f56d6;
+}
+
+.filter-row{
+display:flex;
+gap:20px;
+align-items:end;
+margin-bottom:15px;
+}
+
+.filter-group{
+width:200px;
+}
+
+.filter-group label{
+display:block;
+font-size:12px;
+font-weight:600;
+margin-bottom:4px;
+}
+
+.filter-group input{
+width:100%;
+padding:7px;
+border:1px solid #ddd;
+border-radius:5px;
+font-size:13px;
+}
+
+.apply-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 16px;
+border-radius:6px;
+cursor:pointer;
+font-size:13px;
+height:34px;
+}
+
+.apply-btn:hover{
+background:#5f56d6;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+table th{
+background:#f4f4f4;
+padding:9px;
+font-size:13px;
+text-align:left;
+border-bottom:1px solid #ddd;
+}
+
+table td{
+padding:8px;
+font-size:13px;
+border-bottom:1px solid #eee;
+}
+
+.table-footer{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+font-size:12px;
+color:#555;
+}
+
+</style>
+
+
+<div class="report-container">
+
+<div class="report-card">
+
+<div class="report-header">
+
+<h2>Sales Executive Performance Report</h2>
+
+<button class="print-btn" 
+    onclick="window.location.href='{{ url_for('reports.sales_executive', export='pdf', date_from=request.args.get('date_from'), date_to=request.args.get('date_to')) }}'">
+Print / PDF
+</button>
+</div>
+
+
+<form>
+
+<div class="filter-row">
+
+<div class="filter-group">
+<label>Date From</label>
+<input type="date" name="date_from" value="{{ request.args.get('date_from','') }}">
+</div>
+
+<div class="filter-group">
+<label>Date To</label>
+<input type="date" name="date_to" value="{{ request.args.get('date_to','') }}">
+</div>
+
+<button class="apply-btn" type="submit">Search</button>
+
+</div>
+
+</form>
+
+
+<table>
+
+<thead>
+<tr>
+<th>Sales Executive</th>
+<th>Total Enquiries</th>
+<th>Closed Won</th>
+<th>Closed Lost</th>
+<th>Conversion %</th>
+</tr>
+</thead>
+
+<tbody>
+{% if report_data %}
+    {% for r in report_data %}
+    <tr>
+        <td>{{ r.sales_executive }}</td>
+        <td>{{ r.total_enquiries }}</td>
+        <td>{{ r.closed_won }}</td>
+        <td>{{ r.closed_lost }}</td>
+        <td>{{ r.conversion }}%</td>
+    </tr>
+    {% endfor %}
+{% else %}
+<tr>
+<td colspan="5" style="text-align:center; padding:20px; color:#777;">
+No records found
+</td>
+</tr>
+{% endif %}
+</tbody>
+
+</table>
+
+
+<div class="table-footer">
+
+<div>
+Displaying 0 to 0 of 0 entries
+</div>
+
+<div>
+1
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

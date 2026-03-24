@@ -1,0 +1,423 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:100%;
+margin:25px auto;
+padding:0 10px;
+}
+
+/* Card */
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+margin-bottom:18px;
+}
+
+/* Header */
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.card-header h2{
+margin:0;
+font-size:18px;
+font-weight:600;
+color:#333;
+}
+
+/* Add Button */
+
+.add-btn{
+background:#7367f0;
+color:white;
+padding:7px 14px;
+border-radius:6px;
+text-decoration:none;
+font-size:12px;
+font-weight:500;
+border:none;
+outline:none;
+}
+
+.add-btn:hover{
+background:#5f56d6;
+}
+
+/* Search */
+
+.search-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+font-size:12px;
+}
+
+.search-box select{
+width:80px;
+padding:6px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.search-box input{
+width:220px;
+padding:6px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+/* Table */
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+}
+
+thead{
+background:#f7f7fb;
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #eee;
+text-align:left;
+white-space:nowrap;
+}
+
+th{
+font-weight:600;
+color:#444;
+}
+
+tr:hover{
+background:#fafafa;
+}
+
+/* Status */
+
+.status-active{
+background:#e8fff3;
+color:#28c76f;
+padding:4px 8px;
+border-radius:4px;
+font-size:11px;
+}
+
+/* Action Buttons */
+
+.action-btn{
+padding:4px 8px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:11px;
+}
+
+.edit{
+background:#28c76f;
+color:white;
+}
+
+.delete{
+background:#ea5455;
+color:white;
+}
+
+/* No Data */
+
+.no-data{
+text-align:center;
+padding:30px;
+color:#888;
+font-size:13px;
+}
+/* RIGHT SIDE SLIDE FORM */
+
+.side-form{
+position:fixed;
+top:0;
+right:-420px;
+width:420px;
+height:100%;
+background:#fff;
+box-shadow:-5px 0 15px rgba(0,0,0,0.1);
+transition:0.3s;
+z-index:9999;
+}
+
+.side-form.active{
+right:0;
+}
+
+.side-form-content{
+padding:25px;
+}
+
+.form-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.close-btn{
+font-size:22px;
+cursor:pointer;
+}
+
+.form-group{
+margin-bottom:15px;
+display:flex;
+flex-direction:column;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+padding:8px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:12px;
+}
+
+.form-buttons{
+margin-top:15px;
+display:flex;
+gap:10px;
+}
+
+.save-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.cancel-btn{
+background:#6c757d;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+
+/* TOGGLE SWITCH */
+
+.switch{
+position:relative;
+display:inline-block;
+width:40px;
+height:20px;
+}
+
+.switch input{
+opacity:0;
+width:0;
+height:0;
+}
+
+.slider{
+position:absolute;
+cursor:pointer;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background:#ccc;
+transition:.3s;
+border-radius:20px;
+}
+
+.slider:before{
+position:absolute;
+content:"";
+height:16px;
+width:16px;
+left:2px;
+bottom:2px;
+background:white;
+transition:.3s;
+border-radius:50%;
+}
+
+input:checked + .slider{
+background:#7367f0;
+}
+
+input:checked + .slider:before{
+transform:translateX(20px);
+}
+
+</style>
+
+
+<div class="container">
+
+<!-- CARD -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>Follow-up Result</h2>
+
+<button class="add-btn" onclick="openResultForm()">
++ Add Follow-up Result
+</button>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<div>
+Show
+<select>
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+
+<div>
+<input type="text" placeholder="Search Source">
+</div>
+
+</div>
+
+
+<!-- TABLE -->
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Description</th>
+<th>Status</th>
+<th>Sort Order</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for r in results %}
+
+<tr>
+<td>{{ r.id }}</td>
+<td>{{ r.name }}</td>
+<td>{{ r.description }}</td>
+
+<td>
+<span class="status-active">{{ r.status }}</span>
+</td>
+
+<td>{{ r.sort_order }}</td>
+
+<td>
+<button class="action-btn edit">Edit</button>
+<button class="action-btn delete">Delete</button>
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FOLLOWUP RESULT SIDE FORM -->
+
+<div id="resultForm" class="side-form">
+
+<div class="side-form-content">
+
+<div class="form-header">
+<h3>Add Follow-up Result</h3>
+<span class="close-btn" onclick="closeResultForm()">×</span>
+</div>
+
+<form method="POST">
+
+<div class="form-group">
+<label>Name *</label>
+<input type="text" name="name" required>
+</div>
+
+<div class="form-group">
+<label>Description</label>
+<textarea name="description"></textarea>
+</div>
+
+<div class="form-group">
+<label>Active</label>
+
+<label class="switch">
+<input type="checkbox" name="status" checked>
+<span class="slider"></span>
+</label>
+
+</div>
+
+<div class="form-group">
+<label>Sort Order</label>
+<input type="number" name="sort_order">
+</div>
+
+<div class="form-buttons">
+<button type="button" class="cancel-btn" onclick="closeResultForm()">Cancel</button>
+<button type="submit" class="save-btn">Submit</button>
+</div>
+
+</form>
+
+</div>
+</div>
+<script>
+
+function openResultForm(){
+document.getElementById("resultForm").classList.add("active");
+}
+
+function closeResultForm(){
+document.getElementById("resultForm").classList.remove("active");
+}
+
+</script>
+{% endblock %}

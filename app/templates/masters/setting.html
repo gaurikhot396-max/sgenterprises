@@ -1,0 +1,262 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:900px;
+margin:25px auto;
+padding:0 10px;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card-header{
+margin-bottom:20px;
+}
+
+.card-header h2{
+margin:0;
+font-size:20px;
+font-weight:600;
+color:#333;
+}
+
+.form-group{
+margin-bottom:18px;
+}
+
+.form-group label{
+display:block;
+font-size:13px;
+font-weight:600;
+margin-bottom:6px;
+color:#444;
+}
+
+.form-group input{
+width:100%;
+padding:8px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:13px;
+}
+
+.form-group small{
+display:block;
+margin-top:4px;
+font-size:11px;
+color:#777;
+}
+
+.checkbox-group{
+display:flex;
+align-items:center;
+gap:8px;
+font-size:13px;
+}
+
+.save-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:8px 16px;
+border-radius:6px;
+font-size:13px;
+cursor:pointer;
+}
+
+.save-btn:hover{
+background:#5f56d6;
+}
+
+.form-row{
+display:flex;
+gap:20px;
+}
+
+.form-row .form-group{
+flex:1;
+}
+
+/* Toggle Switch */
+
+.switch{
+position:relative;
+display:inline-block;
+width:40px;
+height:20px;
+}
+
+.switch input{
+opacity:0;
+width:0;
+height:0;
+}
+
+.slider{
+position:absolute;
+cursor:pointer;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background-color:#ccc;
+transition:.4s;
+border-radius:20px;
+}
+
+.slider:before{
+position:absolute;
+content:"";
+height:14px;
+width:14px;
+left:3px;
+bottom:3px;
+background:white;
+transition:.4s;
+border-radius:50%;
+}
+
+input:checked + .slider{
+background:#7367f0;
+}
+
+input:checked + .slider:before{
+transform:translateX(18px);
+}
+#toast-container{
+position:fixed;
+top:20px;
+right:20px;
+z-index:9999;
+}
+
+.toast{
+background:#28a745;
+color:white;
+padding:12px 18px;
+border-radius:6px;
+margin-bottom:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+animation:slideIn 0.4s ease;
+}
+
+@keyframes slideIn{
+from{
+opacity:0;
+transform:translateX(100%);
+}
+to{
+opacity:1;
+transform:translateX(0);
+}
+}
+
+</style>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+
+<div id="toast-container">
+
+{% for category, message in messages %}
+
+<div class="toast {{ category }}">
+{{ message }}
+</div>
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+{% endwith %}
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-header">
+<h2>Follow-up Settings</h2>
+</div>
+
+<form method="POST">
+
+<div class="form-row">
+
+<div class="form-group">
+
+<label>Maximum Follow-ups per Enquiry</label>
+
+<input type="number" name="max_followups" min="1" max="10">
+
+<small>
+Maximum number of follow-ups allowed per enquiry (1–10).
+</small>
+
+</div>
+
+<div class="form-group">
+
+<label>Reminder Before Follow-up (hours)</label>
+
+<input type="number" name="reminder_hours">
+
+<small>
+Send reminder this many hours before scheduled follow-up.
+</small>
+
+</div>
+
+</div>
+
+<div class="form-group">
+
+<label>Overdue follow-up alert</label>
+
+<div style="display:flex;align-items:center;gap:10px;margin-top:6px;">
+
+<span style="font-size:12px;color:#555;">
+Show dashboard notification for overdue follow-ups.
+</span>
+
+<label class="switch">
+<input type="checkbox" name="overdue_alert">
+<span class="slider"></span>
+</label>
+
+</div>
+
+</div>
+
+<button class="save-btn">
+Save Settings
+</button>
+
+</form>
+
+</div>
+
+</div>
+<script>
+
+setTimeout(function(){
+
+let toast=document.getElementById("toast-container");
+
+if(toast){
+toast.style.display="none";
+}
+
+},3000);
+
+</script>
+
+{% endblock %}

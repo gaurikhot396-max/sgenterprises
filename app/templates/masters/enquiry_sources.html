@@ -1,0 +1,366 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:100%;
+margin:25px auto;
+padding:0 10px;
+}
+
+/* Card */
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+margin-bottom:18px;
+}
+
+/* Header */
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.card-header h2{
+margin:0;
+font-size:18px;
+font-weight:600;
+color:#333;
+}
+
+/* Add Button */
+
+.add-btn{
+background:#7367f0;
+color:white;
+padding:7px 14px;
+border-radius:6px;
+text-decoration:none;
+font-size:12px;
+font-weight:500;
+border:none;
+outline:none;
+}
+
+
+.add-btn:hover{
+background:#5f56d6;
+}
+
+/* Search */
+
+.search-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+font-size:12px;
+}
+
+.search-box select{
+width:80px;
+padding:6px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.search-box input{
+width:220px;
+padding:6px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+/* Table */
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+}
+
+thead{
+background:#f7f7fb;
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #eee;
+text-align:left;
+white-space:nowrap;
+}
+
+th{
+font-weight:600;
+color:#444;
+}
+
+tr:hover{
+background:#fafafa;
+}
+
+/* Status */
+
+.status-active{
+background:#e8fff3;
+color:#28c76f;
+padding:4px 8px;
+border-radius:4px;
+font-size:11px;
+}
+
+/* Action Buttons */
+
+.action-btn{
+padding:4px 8px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:11px;
+}
+
+.edit{
+background:#28c76f;
+color:white;
+}
+
+.delete{
+background:#ea5455;
+color:white;
+}
+
+/* No Data */
+
+.no-data{
+text-align:center;
+padding:30px;
+color:#888;
+font-size:13px;
+}
+/* SIDE FORM */
+
+.side-form{
+position:fixed;
+top:0;
+right:-420px;
+width:420px;
+height:100%;
+background:white;
+box-shadow:-5px 0 15px rgba(0,0,0,0.1);
+transition:0.3s;
+z-index:999;
+}
+
+.side-form.active{
+right:0;
+}
+
+.side-form-content{
+padding:25px;
+}
+
+.form-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.close-btn{
+font-size:22px;
+cursor:pointer;
+}
+
+.form-group{
+margin-bottom:15px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+width:100%;
+padding:8px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:12px;
+}
+
+.form-buttons{
+margin-top:15px;
+display:flex;
+gap:10px;
+}
+
+.save-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.cancel-btn{
+background:#6c757d;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+</style>
+
+
+<div class="container">
+
+<!-- CARD -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>Enquiry Sources</h2>
+
+<button class="add-btn" onclick="openSourceForm()">
++ Add New Source
+</button>
+
+</div>
+
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<div>
+Show
+<select>
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+
+<div>
+<input type="text" placeholder="Search Source">
+</div>
+
+</div>
+
+
+<!-- TABLE -->
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Description</th>
+<th>Status</th>
+<th>Sort Order</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for s in sources %}
+<tr>
+<td>{{ s.id }}</td>
+<td>{{ s.name }}</td>
+<td>{{ s.description }}</td>
+<td>{{ s.status }}</td>
+<td>{{ s.sort_order }}</td>
+<td>
+<button class="action-btn edit">Edit</button>
+<button class="action-btn delete">Delete</button>
+</td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+<!-- SOURCE SIDE FORM -->
+
+<div id="sourceForm" class="side-form">
+
+<div class="side-form-content">
+
+<div class="form-header">
+<h3>Add Source</h3>
+<span onclick="closeSourceForm()" class="close-btn">×</span>
+</div>
+
+<form method="POST">
+
+<div class="form-group">
+<label>Name *</label>
+<input type="text" name="name" placeholder="Enter source name" required>
+</div>
+
+<div class="form-group">
+<label>Description</label>
+<textarea name="description" placeholder="Enter description"></textarea>
+</div>
+
+<div class="form-group">
+<label>Status</label>
+<select name="status">
+<option value="Active">Active</option>
+<option value="Inactive">Inactive</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Sort Order</label>
+<input type="number" name="sort_order" placeholder="Enter order">
+</div>
+
+<div class="form-buttons">
+<button type="button" class="cancel-btn" onclick="closeSourceForm()">Cancel</button>
+<button type="submit" class="save-btn">Submit</button>
+</div>
+
+</form>
+
+</div>
+
+</div>
+<script>
+
+function openSourceForm(){
+document.getElementById("sourceForm").classList.add("active");
+}
+
+function closeSourceForm(){
+document.getElementById("sourceForm").classList.remove("active");
+}
+
+</script>
+
+{% endblock %}

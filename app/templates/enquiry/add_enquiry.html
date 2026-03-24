@@ -1,0 +1,309 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.form-container{
+max-width:850px;
+margin:auto;
+padding-bottom:200px;
+}
+
+.form-card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 25px rgba(0,0,0,0.06);
+}
+
+.form-card h2{
+margin-bottom:20px;
+font-size:18px;
+font-weight:600;
+}
+
+/* Grid */
+
+.form-grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:15px;
+}
+
+.form-group{
+display:flex;
+flex-direction:column;
+}
+
+.form-group.full{
+grid-column:1 / -1;
+}
+
+label{
+font-size:13px;
+margin-bottom:4px;
+font-weight:500;
+color:#444;
+}
+
+input,select,textarea{
+padding:9px 10px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:13px;
+outline:none;
+transition:0.2s;
+}
+
+input:focus,select:focus,textarea:focus{
+border-color:#7367f0;
+box-shadow:0 0 0 2px rgba(115,103,240,0.1);
+}
+
+textarea{
+resize:none;
+height:70px;
+}
+
+/* Buttons */
+
+.button-group{
+margin-top:18px;
+display:flex;
+justify-content:flex-end;
+gap:10px;
+}
+
+.btn{
+padding:9px 16px;
+border:none;
+border-radius:6px;
+font-size:13px;
+cursor:pointer;
+font-weight:500;
+}
+
+.btn-cancel{
+background:#e4e6ef;
+color:#444;
+}
+
+.btn-cancel:hover{
+background:#dcdfe9;
+}
+
+.btn-save{
+background:#7367f0;
+color:white;
+}
+
+.btn-save:hover{
+background:#5e50ee;
+}
+
+.btn-follow{
+background:#28c76f;
+color:white;
+}
+
+.btn-follow:hover{
+background:#22b863;
+}
+
+</style>
+
+
+<div class="form-container">
+
+<div class="form-card">
+
+<h2>Add New Enquiry</h2>
+
+<form method="POST" action="{{ url_for('enquiry.add_enquiry') }}">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Enquiry Date *</label>
+<input type="date" name="date" required>
+</div>
+
+<div class="form-group">
+<label>Customer Name *</label>
+<input type="text" name="customer" required 
+placeholder="Enter customer name">
+</div>
+
+<div class="form-group">
+<label>Mobile Number *</label>
+<input type="text" name="mobile" 
+placeholder="e.g.9876543210"
+pattern="[0-9]{10}"
+maxlength="10"
+required>
+</div>
+
+<div class="form-group">
+<label>Alternate Mobile</label>
+<input type="text" name="alt_mobile" 
+placeholder="e.g.9876543210"
+pattern="[0-9]{10}"
+maxlength="10">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" name="email" 
+placeholder="example@gmail.com">
+</div>
+
+<div class="form-group">
+<label>Source of Enquiry *</label>
+<select name="source">
+<option>Select source</option>
+<option>Justdial</option>
+<option>IndiaMART</option>
+<option>Newspaper</option>
+<option>Facebook</option>
+<option>Website</option>
+<option>Referral</option>
+<option>Walk-in</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>State *</label>
+<select name="area" id="state">
+<option value="">Select State</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>City *</label>
+<select name="city" id="city">
+<option value="">Select City</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Product / Service Interested</label>
+<input type="text" name="product">
+</div>
+
+<div class="form-group">
+    <label>Assigned To *</label>
+   <select name="assigned_to" required>
+    <option value="">Select User</option>
+    {% for user in sales_users %}
+    <option value="{{ user.id }}">{{ user.username }}</option>
+    {% endfor %}
+</select>
+</div>
+<div class="form-group">
+<label>Status *</label>
+<select name="status" required>
+<option value="Open">Open</option>
+<option value="Followup">Followup</option>
+<option value="Won">Won</option>
+<option value="Lost">Lost</option>
+<option value="Close">Close</option>
+</select>
+</div>
+
+<div class="form-group full">
+<label>Initial Remark</label>
+<textarea name="remark"></textarea>
+</div>
+
+</div>
+
+<div class="button-group">
+
+<button type="button" class="btn btn-cancel">
+Cancel
+</button>
+
+<button type="submit" class="btn btn-save">
+Save Enquiry
+</button>
+
+<button type="submit" name="btn_follow" class="btn btn-follow">
+    + Save & Add Follow-up
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+<script>
+
+const stateSelect = document.getElementById("state");
+const citySelect = document.getElementById("city");
+
+/* Load States */
+fetch("https://countriesnow.space/api/v0.1/countries/states", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+country: "India"
+})
+})
+.then(res => res.json())
+.then(data => {
+
+data.data.states.forEach(state => {
+
+let option = document.createElement("option");
+option.value = state.name;
+option.textContent = state.name;
+
+stateSelect.appendChild(option);
+
+});
+
+});
+
+
+/* Load Cities */
+
+stateSelect.addEventListener("change", function(){
+
+citySelect.innerHTML = "<option>Select City</option>";
+
+fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+country: "India",
+state: this.value
+})
+})
+.then(res => res.json())
+.then(data => {
+
+data.data.forEach(city => {
+
+let option = document.createElement("option");
+option.value = city;
+option.textContent = city;
+
+citySelect.appendChild(option);
+
+});
+
+});
+
+});
+
+</script>
+
+{% endblock %}

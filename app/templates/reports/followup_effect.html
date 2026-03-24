@@ -1,0 +1,242 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:1100px;
+margin:25px auto;
+padding:0 10px;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Header */
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.card-header h2{
+margin:0;
+font-size:20px;
+font-weight:600;
+color:#333;
+}
+
+/* Top Buttons */
+
+.top-buttons{
+display:flex;
+gap:10px;
+}
+
+.csv-btn{
+background:#28a745;
+color:white;
+border:none;
+padding:7px 16px;
+border-radius:5px;
+cursor:pointer;
+font-size:13px;
+}
+
+.print-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 16px;
+border-radius:5px;
+cursor:pointer;
+font-size:13px;
+}
+
+/* Filter Row */
+
+.filter-row{
+display:flex;
+gap:20px;
+align-items:end;
+margin-bottom:15px;
+flex-wrap:wrap;
+}
+
+.filter-group{
+display:flex;
+flex-direction:column;
+width:180px;
+}
+
+.filter-group label{
+font-size:13px;
+font-weight:600;
+margin-bottom:5px;
+color:#444;
+}
+
+.filter-group input{
+padding:7px;
+border:1px solid #ddd;
+border-radius:5px;
+font-size:13px;
+}
+
+.search-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 16px;
+border-radius:5px;
+cursor:pointer;
+font-size:13px;
+height:34px;
+}
+
+/* Table */
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+font-size:13px;
+}
+
+thead{
+background:#f5f5f5;
+}
+
+th, td{
+padding:8px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+.no-data{
+text-align:center;
+padding:20px;
+color:#888;
+}
+
+.table-footer{
+margin-top:10px;
+font-size:12px;
+color:#555;
+}
+
+</style>
+
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>Follow-up Effectiveness Report</h2>
+
+<div class="top-buttons">
+
+<a href="{{ url_for('reports.followup_result',
+export='csv',
+date_from=request.args.get('date_from'),
+date_to=request.args.get('date_to')) }}">
+<button class="csv-btn">Export CSV</button>
+</a>
+
+<a href="{{ url_for('reports.followup_result',
+export='pdf',
+date_from=request.args.get('date_from'),
+date_to=request.args.get('date_to')) }}">
+<button class="print-btn">Print / PDF</button>
+</a>
+
+</div>
+
+</div>
+
+
+<form method="get">
+
+<div class="filter-row">
+
+<div class="filter-group">
+<label>Date From</label>
+<input type="date" name="date_from" value="{{ request.args.get('date_from','') }}">
+</div>
+
+<div class="filter-group">
+<label>Date To</label>
+<input type="date" name="date_to" value="{{ request.args.get('date_to','') }}">
+</div>
+
+<button class="search-btn">Search</button>
+
+</div>
+
+</form>
+
+
+<table>
+
+<thead>
+
+<tr>
+<th>#</th>
+<th>Follow-up No</th>
+<th>Follow-up Date</th>
+<th>Enquiry</th>
+<th>Customer</th>
+<th>Result</th>
+<th>Completed</th>
+<th>Remark</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for f,e in results %}
+
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ f.id }}</td>
+<td>{{ f.followup_date }}</td>
+<td>{{ e.id }}</td>
+<td>{{ e.customer }}</td>
+<td>{{ f.result }}</td>
+<td>{{ f.completed }}</td>
+<td>{{ f.remark }}</td>
+</tr>
+
+{% endfor %}
+
+{% if results|length == 0 %}
+<tr>
+<td colspan="8" class="no-data">
+No data available in table
+</td>
+</tr>
+{% endif %}
+
+</tbody>
+
+</table>
+
+<div class="table-footer">
+Showing 0 to 0 of 0 entries
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

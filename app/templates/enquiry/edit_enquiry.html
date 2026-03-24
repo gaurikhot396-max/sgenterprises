@@ -1,0 +1,234 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+.form-container{
+    max-width:850px;
+    margin:auto;
+    padding-bottom:200px;
+}
+
+.form-card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 8px 25px rgba(0,0,0,0.06);
+}
+
+.form-card h2{
+    margin-bottom:20px;
+    font-size:18px;
+    font-weight:600;
+}
+
+/* Grid */
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:15px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group.full{
+    grid-column:1 / -1;
+}
+
+label{
+    font-size:13px;
+    margin-bottom:4px;
+    font-weight:500;
+    color:#444;
+}
+
+input,select,textarea{
+    padding:9px 10px;
+    border:1px solid #ddd;
+    border-radius:6px;
+    font-size:13px;
+    outline:none;
+    transition:0.2s;
+}
+
+input:focus,select:focus,textarea:focus{
+    border-color:#7367f0;
+    box-shadow:0 0 0 2px rgba(115,103,240,0.1);
+}
+
+textarea{
+    resize:none;
+    height:70px;
+}
+
+/* Buttons */
+.button-group{
+    margin-top:18px;
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+}
+
+.btn{
+    padding:9px 16px;
+    border:none;
+    border-radius:6px;
+    font-size:13px;
+    cursor:pointer;
+    font-weight:500;
+}
+
+.btn-cancel{
+    background:#e4e6ef;
+    color:#444;
+}
+
+.btn-cancel:hover{
+    background:#dcdfe9;
+}
+
+.btn-save{
+    background:#7367f0;
+    color:white;
+}
+
+.btn-save:hover{
+    background:#5e50ee;
+}
+</style>
+
+<div class="form-container">
+<div class="form-card">
+
+<h2>Edit Enquiry</h2>
+
+<form method="POST" action="{{ url_for('enquiry.edit_enquiry', id=enquiry.id) }}">
+
+<div class="form-grid">
+
+<div class="form-group">
+<label>Enquiry Date *</label>
+<input type="date" name="date" value="{{ enquiry.date }}" required>
+</div>
+
+<div class="form-group">
+<label>Customer Name *</label>
+<input type="text" name="customer" value="{{ enquiry.customer }}" required>
+</div>
+
+<div class="form-group">
+<label>Mobile Number *</label>
+<input type="text" name="mobile" value="{{ enquiry.mobile }}">
+</div>
+
+<div class="form-group">
+<label>Alternate Mobile</label>
+<input type="text" name="alt_mobile" value="{{ enquiry.alt_mobile }}">
+</div>
+
+<div class="form-group">
+<label>Email</label>
+<input type="email" name="email" value="{{ enquiry.email }}">
+</div>
+
+<div class="form-group">
+<label>Source of Enquiry *</label>
+<select name="source">
+    <option selected>{{ enquiry.source }}</option>
+    <option>Justdial</option>
+    <option>IndiaMART</option>
+    <option>Newspaper</option>
+    <option>Facebook</option>
+    <option>Website</option>
+    <option>Referral</option>
+    <option>Walk-in</option>
+    <option>Other</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Area / Location *</label>
+<select name="area">
+    <option selected>{{ enquiry.area }}</option>
+    <option>Maharashtra</option>
+    <option>Gujarat</option>
+    <option>Karnataka</option>
+    <option>Delhi</option>
+    <option>Tamil Nadu</option>
+    <option>Telangana</option>
+    <option>Kerala</option>
+    <option>Rajasthan</option>
+    <option>Punjab</option>
+    <option>Haryana</option>
+    <option>West Bengal</option>
+    <option>Uttar Pradesh</option>
+    <option>Madhya Pradesh</option>
+    <option>Bihar</option>
+    <option>Odisha</option>
+    <option>Assam</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>City</label>
+<select name="city">
+    <option selected>{{ enquiry.city }}</option>
+    <option>Mumbai</option>
+    <option>Pune</option>
+    <option>Kolhapur</option>
+    <option>Nagpur</option>
+    <option>Bangalore</option>
+    <option>Hyderabad</option>
+    <option>Chennai</option>
+    <option>Ahmedabad</option>
+    <option>Jaipur</option>
+    <option>Delhi</option>
+    <option>Kolkata</option>
+    <option>Lucknow</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Product / Service Interested</label>
+<input type="text" name="product" value="{{ enquiry.product }}">
+</div>
+
+<div class="form-group">
+<label>Assigned To *</label>
+<select name="assigned_to">
+    <option selected>{{ enquiry.assigned_to }}</option>
+    <option>Sales Executive1</option>
+</select>
+</div>
+<div class="form-group">
+<label>Status *</label>
+<select name="status" required>
+<option value="Open">Open</option>
+<option value="Followup">Followup</option>
+<option value="Won">Won</option>
+<option value="Lost">Lost</option>
+<option value="Close">Close</option>
+</select>
+</div>
+
+<div class="form-group full">
+<label>Initial Remark</label>
+<textarea name="remark">{{ enquiry.remark }}</textarea>
+</div>
+
+</div>
+
+<div class="button-group">
+<button type="button" class="btn btn-cancel" onclick="window.history.back();">Cancel</button>
+<button type="submit" class="btn btn-save">Update Enquiry</button>
+</div>
+
+</form>
+
+</div>
+</div>
+
+{% endblock %}

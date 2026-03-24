@@ -1,0 +1,239 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.report-container{
+max-width:1100px;
+margin:25px auto;
+}
+
+.report-card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.report-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px;
+}
+
+.report-header h2{
+font-size:18px;
+font-weight:600;
+color:#333;
+}
+
+.action-buttons{
+display:flex;
+gap:8px;
+}
+
+.btn{
+border:none;
+padding:7px 14px;
+border-radius:6px;
+font-size:12px;
+cursor:pointer;
+color:#fff;
+}
+
+.csv-btn{
+background:#28a745;
+}
+
+.print-btn{
+background:#7367f0;
+}
+
+.csv-btn:hover{
+background:#218838;
+}
+
+.print-btn:hover{
+background:#5f56d6;
+}
+
+.filter-row{
+display:flex;
+gap:20px;
+align-items:end;
+margin-bottom:15px;
+flex-wrap:wrap;
+}
+
+.filter-group{
+width:180px;
+}
+
+.filter-group label{
+display:block;
+font-size:12px;
+font-weight:600;
+margin-bottom:4px;
+}
+
+.filter-group input,
+.filter-group select{
+width:100%;
+padding:7px;
+border:1px solid #ddd;
+border-radius:5px;
+font-size:13px;
+}
+
+.apply-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 16px;
+border-radius:6px;
+cursor:pointer;
+font-size:13px;
+height:34px;
+}
+
+.apply-btn:hover{
+background:#5f56d6;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+table th{
+background:#f4f4f4;
+padding:9px;
+font-size:13px;
+text-align:left;
+border-bottom:1px solid #ddd;
+}
+
+table td{
+padding:8px;
+font-size:13px;
+border-bottom:1px solid #eee;
+}
+
+.table-footer{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+font-size:12px;
+color:#555;
+}
+
+</style>
+
+
+<div class="report-container">
+
+<div class="report-card">
+
+<div class="report-header">
+
+<h2>Area Wise Enquiry Report</h2>
+
+<div class="action-buttons">
+    <a href="{{ url_for('reports.areawise_report', export='csv', date_from=request.args.get('date_from'), date_to=request.args.get('date_to'), area=request.args.get('area')) }}" class="btn csv-btn">Export CSV</a>
+    <a href="{{ url_for('reports.areawise_report', export='pdf', date_from=request.args.get('date_from'), date_to=request.args.get('date_to'), area=request.args.get('area')) }}" class="btn print-btn">Print / PDF</a>
+</div>
+
+</div>
+
+
+<form method="GET">
+
+<div class="filter-row">
+
+<div class="filter-group">
+<label>Date From</label>
+<input type="date" name="date_from" value="{{ request.args.get('date_from', '') }}">
+</div>
+
+<div class="filter-group">
+<label>Date To</label>
+<input type="date" name="date_to" value="{{ request.args.get('date_to', '') }}">
+</div>
+
+ <div class="filter-group">
+        <label>Area</label>
+        <select name="area">
+            <option value="All Areas" {% if request.args.get('area')=='All Areas' %}selected{% endif %}>All Areas</option>
+            {% for a in enquiries|map(attribute='area')|unique %}
+            <option value="{{ a }}" {% if request.args.get('area')==a %}selected{% endif %}>{{ a }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+ <button class="apply-btn" type="submit">Apply</button>
+
+</div>
+
+</form>
+
+
+<table>
+
+<thead>
+<tr>
+<th>#</th>
+<th>Date</th>
+<th>Customer</th>
+<th>Mobile</th>
+<th>Source</th>
+<th>Area</th>
+<th>Assigned To</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+{% if enquiries %}
+    {% for e in enquiries %}
+    <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ e.date.strftime('%d %b %Y') if e.date else "" }}</td>
+        <td>{{ e.customer }}</td>
+        <td>{{ e.mobile }}</td>
+        <td>{{ e.source }}</td>
+        <td>{{ e.area }}</td>
+        <td>{{ e.assigned_user.username if e.assigned_user else "" }}</td>
+        <td>{{ e.status }}</td>
+    </tr>
+    {% endfor %}
+{% else %}
+<tr>
+<td colspan="8" style="text-align:center; padding:20px; color:#777;">
+No records found
+</td>
+</tr>
+{% endif %}
+</tbody>
+
+</table>
+
+
+<div class="table-footer">
+
+<div>
+Displaying {{ enquiries|length }} entries
+</div>
+
+<div>
+1
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

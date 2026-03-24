@@ -1,0 +1,493 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:100%;
+margin:25px auto;
+padding:0 10px;
+}
+
+/* Card */
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+margin-bottom:18px;
+}
+
+/* Header */
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.card-header h2{
+margin:0;
+font-size:18px;
+font-weight:600;
+color:#333;
+}
+.header-buttons{
+display:flex;
+gap:1px;   /* buttons मधला gap कमी */
+}
+
+/* Add Button */
+
+.add-btn{
+background:#7367f0;
+color:white;
+padding:7px 14px;
+border-radius:6px;
+text-decoration:none;
+font-size:12px;
+font-weight:500;
+}
+
+.add-btn:hover{
+background:#5f56d6;
+}
+.export-btn{
+background:#28c76f;
+color:white;
+padding:7px 14px;
+border-radius:6px;
+text-decoration:none;
+font-size:12px;
+font-weight:500;
+}
+
+.export-btn:hover{
+background:#22b863;
+}
+
+/* Filter Grid */
+
+.filter-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+column-gap:25px;
+row-gap:12px;
+}
+
+label{
+font-size:12px;
+margin-bottom:3px;
+display:block;
+color:#555;
+}
+
+input,select{
+width:100%;
+padding:7px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:12px;
+outline:none;
+}
+
+input:focus,select:focus{
+border-color:#7367f0;
+}
+
+/* Buttons */
+
+.filter-buttons{
+margin-top:14px;
+}
+
+.filter-btn{
+background:#7367f0;
+color:white;
+padding:6px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+margin-right:8px;
+}
+
+.reset-btn{
+background:#6c757d;
+color:white;
+padding:6px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+}
+
+/* Search */
+
+.search-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+font-size:12px;
+}
+
+.search-box select{
+width:80px;
+}
+
+.search-box input{
+width:220px;
+}
+
+/* Table */
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+}
+
+thead{
+background:#f7f7fb;
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #eee;
+text-align:left;
+white-space:nowrap;
+}
+
+th{
+font-weight:600;
+color:#444;
+}
+
+tr:hover{
+background:#fafafa;
+}
+
+/* Action Buttons */
+
+.action-btn{
+padding:4px 8px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:11px;
+}
+
+.view{
+background:#7367f0;
+color:white;
+}
+
+.edit{
+background:#28c76f;
+color:white;
+}
+
+/* No Data */
+
+.no-data{
+text-align:center;
+padding:30px;
+color:#888;
+font-size:13px;
+}
+
+
+
+
+</style>
+
+
+<div class="container">
+
+<!-- FILTER CARD -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>All Enquiries</h2>
+
+<a href="{{ url_for('enquiry.add_enquiry') }}" class="add-btn">
++ Add New Enquiry
+</a>
+<a href="{{ url_for('enquiry.export_excel') }}" class="export-btn">
+📥 Export Excel
+</a>
+
+</div>
+
+<form method="GET" action="{{ url_for('enquiry.all_enquiries') }}">
+
+<div class="filter-grid">
+
+<div>
+<label>Date From</label>
+<input type="date" name="date_from">
+</div>
+
+<div>
+<label>Date To</label>
+<input type="date" name="date_to">
+</div>
+
+<div>
+<label>Source</label>
+<select name="source">
+<option>All Sources</option>
+<option>Justdial</option>
+<option>IndiaMARTk</option>
+<option>Newspaper</option>
+<option>Facebook</option>
+<option>Google</option>
+<option>Referral</option>
+<option>Walk-in</option>
+<option>Other</option>
+</select>
+</div>
+
+<div>
+<label>State</label>
+<select name="area" id="state">
+<option value="">All States</option>
+
+{% for state in states %}
+<option value="{{ state }}">{{ state }}</option>
+{% endfor %}
+
+</select>
+</div>
+<div>
+<label>City</label>
+<select name="city" id="city">
+<option value="">All Cities</option>
+
+{% for city in cities %}
+<option value="{{ city }}">{{ city }}</option>
+{% endfor %}
+
+</select>
+</div>
+
+<div>
+<label>Assigned To</label>
+<select name="assigned_to">
+
+<option value="">All Users</option>
+
+{% for user in users %}
+<option value="{{ user.id }}">
+{{ user.username }}
+</option>
+{% endfor %}
+
+</select>
+</div>
+
+<div>
+<label>Follow-ups</label>
+<select>
+<option>All</option>
+<option>Due Today</option>
+<option>Overdue</option>
+</select>
+</div>
+
+<div>
+<label>Status</label>
+<select>
+<option>All Statuses</option>
+<option>Interested</option>
+<option>Not Interested</option>
+<option>Job Enquiry</option>
+<option>Wrong Category</option>
+<option>Duplicates</option>
+<option>Closed-Won</option>
+<option>Closed-Lost</option>
+<option>Call not Connected</option>
+</select>
+</div>
+
+<div>
+<label>Status Type</label>
+<select>
+<option>Open</option>
+<option>Closed</option>
+</select>
+</div>
+
+</div>
+
+<div class="filter-buttons">
+
+<button type="submit" class="filter-btn">Filter</button>
+<button type="reset" class="reset-btn">Reset</button>
+
+</div>
+
+</div>
+</form>
+
+<!-- TABLE CARD -->
+
+<div class="card">
+
+<div class="search-box">
+
+<div>
+Show
+<select>
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+
+<div>
+<form method="GET" action="{{ url_for('enquiry.all_enquiries') }}">
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Date</th>
+<th>Customer</th>
+<th>Mobile</th>
+<th>Source</th>
+<th>Area</th>
+<th>Assigned To</th>
+<th>Created By</th>
+<th>Status</th>
+<th>Closed</th>
+<th>Follow-ups</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for enquiry in enquiries %}
+<tr>
+  <td>{{ enquiry.id }}</td>
+  <td>{% if enquiry.date %}{{ enquiry.date.strftime('%d-%m-%Y') }}{% endif %}</td>
+  <td>{{ enquiry.customer }}</td>
+  <td>{{ enquiry.mobile }}</td>
+  <td>{{ enquiry.source }}</td>
+  <td>{{ enquiry.area }}</td>
+  
+  <td>
+{{ enquiry.assigned_user.username if enquiry.assigned_user else "Not Assigned" }}
+</td>
+  <td>
+      {% if enquiry.created_by %}
+          {{ enquiry.created_by.username }}
+      {% else %}
+          Admin
+      {% endif %}
+  </td>
+  <td>{{ enquiry.status }}</td>
+  <td>{{ enquiry.closed }}</td>
+  <td>{{ enquiry.followups|length }}</td>
+  <td>
+      <a href="{{ url_for('enquiry.edit_enquiry', id=enquiry.id) }}" class="action-btn edit">Edit</a>
+      <a href="{{ url_for('enquiry.delete_enquiry', id=enquiry.id) }}" class="action-btn view" style="background:red;">Delete</a>
+  </td>
+</tr>
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+<script>
+
+const stateSelect = document.getElementById("state");
+const citySelect = document.getElementById("city");
+
+/* Load States */
+fetch("https://countriesnow.space/api/v0.1/countries/states", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+country: "India"
+})
+})
+.then(res => res.json())
+.then(data => {
+
+data.data.states.forEach(state => {
+
+let option = document.createElement("option");
+option.value = state.name;
+option.textContent = state.name;
+
+stateSelect.appendChild(option);
+
+});
+
+});
+
+
+/* Load Cities */
+
+stateSelect.addEventListener("change", function(){
+
+citySelect.innerHTML = "<option>Select City</option>";
+
+fetch("https://countriesnow.space/api/v0.1/countries/state/cities", {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+country: "India",
+state: this.value
+})
+})
+.then(res => res.json())
+.then(data => {
+
+data.data.forEach(city => {
+
+let option = document.createElement("option");
+option.value = city;
+option.textContent = city;
+
+citySelect.appendChild(option);
+
+});
+
+});
+
+});
+
+</script>
+
+{% endblock %}

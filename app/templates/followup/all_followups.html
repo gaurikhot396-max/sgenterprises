@@ -1,0 +1,485 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:100%;
+margin:25px auto;
+padding:0 10px;
+}
+
+/* Card */
+
+.card{
+background:#fff;
+padding:20px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+margin-bottom:18px;
+}
+
+/* Header */
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.card-header h2{
+margin:0;
+font-size:18px;
+font-weight:600;
+color:#333;
+}
+
+/* Add Button */
+
+.add-btn{
+background:#7367f0;
+color:white;
+padding:7px 14px;
+border-radius:6px;
+text-decoration:none;
+font-size:12px;
+font-weight:500;
+cursor:pointer;
+border:none;
+outline:none;
+}
+
+.add-btn:hover{
+background:#5f56d6;
+}
+
+/* Filter Grid */
+
+.filter-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:12px;
+}
+
+label{
+font-size:12px;
+margin-bottom:3px;
+display:block;
+color:#555;
+}
+
+input,select{
+width:100%;
+padding:7px;
+border:1px solid #ddd;
+border-radius:6px;
+font-size:12px;
+outline:none;
+}
+
+input:focus,select:focus{
+border-color:#7367f0;
+}
+
+/* Buttons */
+
+.filter-buttons{
+margin-top:14px;
+}
+
+.filter-btn{
+background:#7367f0;
+color:white;
+padding:6px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+margin-right:8px;
+}
+
+.reset-btn{
+background:#6c757d;
+color:white;
+padding:6px 12px;
+border:none;
+border-radius:6px;
+cursor:pointer;
+font-size:12px;
+}
+
+/* Search */
+
+.search-box{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:12px;
+font-size:12px;
+}
+
+.search-box select{
+width:80px;
+}
+
+.search-box input{
+width:220px;
+}
+
+/* Table */
+
+.table-wrapper{
+overflow-x:auto;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+}
+
+thead{
+background:#f7f7fb;
+}
+
+th,td{
+padding:8px;
+border-bottom:1px solid #eee;
+text-align:left;
+white-space:nowrap;
+}
+
+th{
+font-weight:600;
+color:#444;
+}
+
+tr:hover{
+background:#fafafa;
+}
+
+/* Action Buttons */
+
+.action-btn{
+padding:4px 8px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+font-size:11px;
+}
+
+.view{
+background:#7367f0;
+color:white;
+}
+
+.edit{
+background:#28c76f;
+color:white;
+}
+
+/* No Data */
+
+.no-data{
+text-align:center;
+padding:30px;
+color:#888;
+font-size:13px;
+}
+/* SIDE FORM */
+
+.side-form{
+position:fixed;
+top:0;
+right:-420px;
+width:420px;
+height:100%;
+background:white;
+box-shadow:-5px 0 15px rgba(0,0,0,0.1);
+transition:0.3s;
+z-index:999;
+}
+
+.side-form.active{
+right:0;
+}
+
+.side-form-content{
+padding:25px;
+}
+
+.form-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+
+.close-btn{
+font-size:22px;
+cursor:pointer;
+}
+
+.side-form .form-group{
+margin-bottom:15px;
+}
+
+.side-form textarea{
+height:70px;
+resize:none;
+}
+
+.form-buttons{
+margin-top:15px;
+display:flex;
+gap:10px;
+}
+
+.save-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.cancel-btn{
+background:#6c757d;
+color:white;
+border:none;
+padding:7px 12px;
+border-radius:6px;
+cursor:pointer;
+}
+
+</style>
+
+
+<div class="container">
+
+<!-- FILTER CARD -->
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>Follow-ups</h2>
+
+<button class="add-btn" onclick="openFollowupForm()">
++ Add New Follow-up
+</button>
+</a>
+
+</div>
+
+<div class="filter-grid">
+<div>
+
+<label>Status</label>
+<select>
+<option>All Status</option>
+<option>Pending</option>
+<option>Due Today</option>
+<option>Overdue</option>
+<option>Completed</option>
+</select>
+</div>
+
+<div>
+<label>Date From</label>
+<input type="date">
+</div>
+
+<div>
+<label>Date To</label>
+<input type="date">
+</div>
+
+<div>
+<label>Assigned To</label>
+<select>
+<option>All Users</option>
+<option>Sales Executive1</option>
+
+</select>
+</div>
+
+<div>
+<label>Follow-ups</label>
+<select>
+<option>All</option>
+<option>Call</option>
+<option>Meeting</option>
+<option>Demo</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Enquiry</label>
+
+<input type="text" list="enquiryList" placeholder="Search customer">
+
+<datalist id="enquiryList">
+{% for e in enquiries %}
+<option value="{{ e.customer_name }} ({{ e.mobile }})">
+{% endfor %}
+
+</datalist>
+
+</div>
+
+</div>
+
+<div class="filter-buttons">
+
+<button class="filter-btn">Filter</button>
+<button class="reset-btn">Reset</button>
+
+</div>
+
+</div>
+
+
+<!-- TABLE CARD -->
+
+<div class="card">
+
+<div class="search-box">
+
+<div>
+Show
+<select>
+<option>10</option>
+<option>25</option>
+<option>50</option>
+</select>
+</div>
+
+<div>
+<input type="text" placeholder="Search Enquiry">
+</div>
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Enquiry</th>
+<th>Follow-up#</th>
+<th>Date & Time</th>
+<th>Type</th>
+<th>Assigned To</th>
+<th>Status</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for f in followups %}
+<tr>
+<td>{{ f.id }}</td>
+<td>{{ f.lead_id }}</td>
+<td>{{ loop.index }}</td>
+<td>{{ f.followup_date }} {{ f.followup_time }}</td>
+<td>{{ f.followup_type }}</td>
+<td>Admin</td>
+<td>Pending</td>
+<td>
+<button class="action-btn view">View</button>
+<button class="action-btn edit">Edit</button>
+</td>
+</tr>
+{% endfor %}
+
+{% if followups|length == 0 %}
+<tr>
+<td colspan="8" class="no-data">No data available</td>
+</tr>
+{% endif %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+<!-- FOLLOWUP SIDE FORM -->
+
+<div id="followupForm" class="side-form">
+
+<div class="side-form-content">
+
+<div class="form-header">
+<h3>Add Follow-up</h3>
+<span onclick="closeFollowupForm()" class="close-btn">×</span>
+</div>
+
+<form method="POST" action="{{ url_for('followup.add_followup') }}">
+
+<div class="form-group">
+<label>Enquiry *</label>
+<<input type="text" name="lead_id" required>
+</div>
+
+<div class="form-group">
+<label>Follow-up Date *</label>
+<input type="date" name="followup_date" required>
+</div>
+
+<div class="form-group">
+<label>Follow-up Time</label>
+<input type="time" name="followup_time">
+</div>
+
+<div class="form-group">
+<label>Follow-up Type</label>
+<select name="followup_type">
+<option value="Call">Call</option>
+<option value="Meeting">Meeting</option>
+<option value="Demo">Demo</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>Follow-up Remark</label>
+<textarea name="remarks"></textarea>
+</div>
+
+<div class="form-buttons">
+<button type="button" class="cancel-btn" onclick="closeFollowupForm()">Cancel</button>
+<button type="submit" class="save-btn">Submit</button>
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+
+<script>
+
+function openFollowupForm(){
+document.getElementById("followupForm").classList.add("active");
+}
+
+function closeFollowupForm(){
+document.getElementById("followupForm").classList.remove("active");
+}
+
+</script>
+
+{% endblock %}

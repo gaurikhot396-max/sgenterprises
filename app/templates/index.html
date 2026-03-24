@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>SG Enterprises- A to Z Roofing Solutions</title>
+<!-- meta -->
+<meta property="og:title" content="Roofing Solutions">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta property="og:url" content="">
+<meta name="twitter:card" content="summary_large_image">
+<!-- googlefont -->
+
+<!-- googlefont -->
+<!-- favicon -->
+<link rel="shortcut icon" type="images/icon.png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+<!-- favicon -->
+  <!-- bxslider -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" ></script>
+<link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" media>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" media>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css" media>
+<!-- bxslider -->
+<!-- fontawesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css' media>
+<!-- fontawesome -->
+<!-- css -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/flaticon.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}">
+</head>
+
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/animations.css') }}" media>
+<!-- WhatsHelp.io widget -->
+ 
+  <!-- /WhatsHelp.io widget -->
+<script>
+ 
+  
+
+
+  $(document).ready(function() {
+    var maxHeightc;
+
+  $('.main-contact .bgcolorc').each(function() {
+    maxHeightc = maxHeightc > $(this).height() ? maxHeightc :     $(this).height();
+ });
+
+ $('.main-contact .bgcolorc').each(function() {
+   $(this).height(maxHeightc);
+ });
+  var maxHeight;
+
+  $('.bgwhite').each(function() {
+    maxHeight = maxHeight > $(this).height() ? maxHeight :     $(this).height();
+ });
+
+ $('.bgwhite').each(function() {
+   $(this).height(maxHeight);
+ });
+ var maxHeight1;
+
+  $('#services .servicetxt').each(function() {
+    maxHeight1 = maxHeight1 > $(this).height() ? maxHeight1 :     $(this).height();
+ });
+
+ $('#services .servicetxt').each(function() {
+   $(this).height(maxHeight1);
+ });
+ var maxHeightim;
+
+  $('.awardtxt').each(function() {
+    maxHeightim = maxHeightim > $(this).height() ? maxHeightim :     $(this).height();
+ });
+
+ $('.awardimg img').each(function() {
+   $(this).height(maxHeightim + 70);
+ });
+ var maxHeight6;
+
+  $('.port .servicetxt').each(function() {
+    maxHeight6 = maxHeight6 > $(this).height() ? maxHeight6 :     $(this).height();
+ });
+
+ $('.port .servicetxt').each(function() {
+   $(this).height(maxHeight6+60);
+ });
+ 
+
+
+});
+  
+  $(document).ready(function(){
+  $('.slider2').bxSlider({
+    slideWidth: 300,
+    minSlides: 5,
+    maxSlides: 5,
+    slideMargin: 40
+  });
+ 
+});
+  
+</script>
+<!-- css  -->
+</head>
+<body>
+<!-- top -->
+<div id="top"></div> 
+<!-- top -->
+
+<!-- Preloader -->
+<div id="preloader">
+  <div id="status">&nbsp;</div>
+</div>
+<!-- Preloader -->
+
+<header>
+
+<div class="main-nav">
+  
+     <!-- Top Bar -->        
+        <div id="top-bar">
+            <div id="top-bar-inner" class="container">
+                <div class="top-bar-inner-wrap row">
+                    <div class="top-bar-content col-md-6 col-sm-12 col-xs-12">
+                     
+                      <a href="mailto:info@horizonpower.co.in"><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp sgroofing@gmail.com</a>&nbsp&nbsp
+                     <!--  <span><i class="fa fa-clock-o" aria-hidden="true"></i>&nbsp Monday-Friday &nbsp&nbsp 9:00am-6.00pm</span>
+                       <span class="address content">Plot No.336,Near labour Office Majagaon Road Udyambag Belagavi, Karnataka </span>-->
+                    </div> <!--/.top-bar-content -->
+
+                   <div class="top-bar-socials col-md-6 col-sm-12 col-xs-12 col-md-offset-0">
+                        <div class="inner">
+                <!--<span class="texts">Follow us:</span>&nbsp&nbsp-->
+                            <span class="icons">
+                                <a  title="Facebook">
+                                    <span class="fa fa-facebook-square" aria-hidden="true"></span>
+                                </a>&nbsp&nbsp
+                                <a title="Twitter">
+                                  <span class="fa fa-twitter-square" aria-hidden="true"></span>
+                                </a>&nbsp&nbsp
+                                <a title="linkedin">
+                                    <span class="fa fa-linkedin-square" aria-hidden="true"></span>
+                                </a>&nbsp&nbsp
+                                <a title="instagram">
+                                    <span class="fa fa-instagram" aria-hidden="true"></span>
+                                </a>&nbsp&nbsp
+                                
+                               
+                            </span>
+                        </div>
+                    </div> <!--/.top-bar-socials -->
+                </div>
+            </div>
+        </div> 
+         <!--/#top-bar -->
+         <div class="headmain">
+         <div class="container">
+    <nav class="navbar navbar-expand-md navbar-dark new-nav">
+        <a class="navbar-brand" href="{{ url_for('index.index') }}"><img src="{{ url_for('static', filename='images/main_logo.png') }}" alt="logo"></a>
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="navbar-collapse collapse " id="navbarCollapse" style="">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('index.index') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about1">About Us</a>
+            </li>
+             <li class="nav-item">
+                            <a class="nav-link" href="#brands">Our Brands</a>
+
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#port">Our Products</a>
+            </li>
+             <li class="nav-item">
+              <a class="nav-link" href="#callus">Contact Us</a>
+            </li>
+           <li class="nav-item">
+  <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+</li>
+            
+          </ul>                   
+            <!--<button class="app_btn" type="submit" data-toggle="modal" data-target="#myModal">Appointment</button>-->
+            
+          </div>
+
+      </nav>
+ </div>
+</div>
+</div>
+</header><!-- /header -->
+
+
+
+
+
+
+
+
+
+
+
+<div class="main-slider">
+	<div class="slider">
+		<div>
+    	<div class="slider-img animatedParent">
+    	<img alt="services" src="{{ url_for('static', filename='images/slide1.png') }}">	
+    	<div class="slider-text">
+    	<div class="container" id="slide">	
+    		<div class="col-md-8 textside position-relative">
+            <div class="content text-center">
+              <h6 class="mb-0 animated fadeInRight go">Our Best Roofing <br>
+Services &amp; Consulting </h6>
+              
+               <a class="more_btn animated fadeInDownShort go" href="#products">Know More</a>
+            </div>
+          </div>   		
+    	</div>
+    		
+    	</div>	
+    	</div>	<!-- img -->
+    </div><!-- slider -->
+    <div>
+    	<div class="slider-img animatedParent secondslid">
+    	<img alt="services" src="{{ url_for('static', filename='images/slide2.png') }}">	
+    	<div class="slider-text">
+<div class="container" id="slide">	
+    		<div class="col-md-8 textside position-relative">
+            <div class="content text-center">
+              <h6 class="mb-0 animated fadeInRight go">Durable Roofs Installed by<br> Trusted Professionals 
+</h6>
+              
+             <a class="more_btn animated fadeInDownShort go" href="#products">Know More</a>
+            </div>
+          </div>
+    	</div>
+    		
+    	</div>	
+    	</div>	<!-- img -->
+    </div><!-- slider -->
+     <div>
+    	<div class="slider-img animatedParent ">
+    	<img alt="services" src="{{ url_for('static', filename='images/slider22.png') }}">	
+    	<div class="slider-text">
+    	<div class="container" id="slide">	
+    		<div class="col-md-8 textside position-relative">
+            <div class="content text-center">
+              <h6 class="mb-0 animated fadeInRight go">We Build Your Roof <br>
+With Modern Technology</h6>
+              
+               <a class="more_btn animated fadeInDownShort go" href="#products">Know More</a>
+            </div>
+          </div>
+    		
+    	</div>
+    		
+    	</div>	
+    	</div>	<!-- img -->
+    </div><!-- slider -->
+     <div>
+    	<div class="slider-img animatedParent">
+    	<img alt="services" src="{{ url_for('static', filename='images/slider23.png') }}">	
+    	<div class="slider-text">
+    	<div class="container" id="slide">	
+    		<div class="col-md-8 textside position-relative">
+            <div class="content text-center">
+              <h6 class="mb-0 animated fadeInRight go">Relaible Roofing & Fixing Services  </h6>
+              
+              <a class="more_btn animated fadeInDownShort go" href="#products">Know More</a>
+            </div>
+          </div>
+    		
+    	</div>
+    		
+    	</div>	
+    	</div>	<!-- img -->
+    </div><!-- slider -->
+    
+     </div>
+</div><!-- main-slider -->
+<div class="main-about tnb animatedParent" id="about1">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="abut-text abut-info animated fadeInDownShort go">
+          <div class="item-subtitle">Get TO Know</div>
+          <div class="middle-title"><h1>About <span>SG Enterprises</span></h1>
+      <h5>We’r Commited To Provide Roofing Services 
+</h5></div>
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.<br><br> It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. <br><br>
+            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+</p>
+
+              
+           
+        </div>
+      </div>
+<div class="col-md-6 col-sm-6 col-xs-12 animated fadeInLeftShort go">
+				<div class="abut-text1">
+					<div class="about-img">
+            <div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12 mb-4" >
+<img alt="about" width="315px" height="293px" src="{{ url_for('static', filename='images/banner-1.jpg') }}">
+            </div>
+          <!--<img alt="about" src="images/about-1.jpg">
+          <img alt="about" class="img-about" src="images/about-2.jpg">-->
+      </div>
+					<div class="row">
+              <div class="col-md-6 col-sm-6 col-xs-12">
+<img alt="about" src="{{ url_for('static', filename='images/banner-2.jpg') }}">
+            </div>
+             
+           <div class="col-md-6 col-sm-6 col-xs-12 myimg">
+<img alt="about" src="{{ url_for('static', filename='images/banner-3.jpg') }}">
+            </div>
+      </div>
+				</div>
+			</div>
+
+			
+			
+		</div>
+	</div>
+</div>
+</div>
+<!------about section end----->
+
+                        <!---------what we do---------------->
+ <div class="main-what tnb animatedParent" id="whtwedo">
+	<div class="container" >
+							<div class="row" >
+			<div class="col-md-6 col-sm-6 col-xs-12">
+				<div class="abut-text abut-info animated fadeInRightShort go">
+          <div class="item-subtitle">What We do</div>
+          <div class="middle-title"><h1>We’r Prodviding Quality<br>
+ <span>Roofing Services</span></h1>
+					             	 
+				</div>
+			</div>
+    </div>
+			<div class="col-md-6 col-sm-6 col-xs-12 animated fadeInLeftShort go">
+				<div class="abut-text1">
+					<div class="about-img">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <!--<img alt="about" class="img-about" src="images/about-2.jpg">-->
+      </div>
+					</div>
+				</div>
+			
+</div>
+
+  <div class="testimonial">
+
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv1.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Roofing Layer
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    <!-- <a class="more_btn animated fadeInDownShort go" href="services.php">Read More</a>-->
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv2.jpg') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Roof Repair
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+     
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv3.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Roof Installation
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+   
+
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv4.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Roof Renovation
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+     
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv5.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Damage Roofing
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv6.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Corner Fixing
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    
+
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+
+
+                       
+<!-------our servicess-------------------->
+
+
+
+
+                        <div class="brands tnb animatedParent" id="brands">
+	<div class="container">
+		
+		<div class="row">
+                
+
+<div class="big-title"><div class="item-subtitle" style="text-align: center!important;">Explore more</div><h1>Our <span>Brands</span></h1></div>
+	
+        <div class="inneraward mb-5">
+        <div class="row">
+          
+<div class="awardimg col-md-6 col-sm-12 col-xs-12 animated fadeInLeftShort go">
+    <img class="img-fluid" width="100%" src="{{ url_for('static', filename='images/ever.png') }}"></div>
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="awardtxt">
+        <h4>Everguard
+        </h4>
+          <p style="text-align: left;">Everguard offers lightweight, efficient roofing systems perfect for new or refurbished flat/curved projects. Known for single-ply roofing, it ensures superb thermal insulation and airtightness, cuts carbon footprint, and promises enduring protection.<br>Everguard is a versatile and quick solution to be installed on the roof s ofa wide range of buildings to ensure safe and durable waterprooofing.</p>
+    </div>
+    </div>
+</div>
+</div>
+
+  
+  <div class="inneraward ">
+        <div class="row">
+          <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="awardtxt1">
+        <h4>Monier
+        </h4>
+          <p style="text-align: left;">Since 1997, Monier defines premium roofing in India with top-quality tile and system components. Trusted by major builders, our tiles—available in diverse designs and hues, spanning concrete and clay—are India's finest.<br>Monier champions the timeless beauty of clay tiles. Precisely crafted with H-Cassette moulds for quality & longevity. From profiled to flat designs, discover diverse colors & finishes. Embrace tradition & modernity with Monier.</p>
+    </div>
+    </div>
+<div class="awardimg col-md-6 col-sm-12 col-xs-12 animated fadeInLeftShort go">
+    <img class="img-fluid" width="100%" src="{{ url_for('static', filename='images/mon.png') }}"></div>
+
+</div>
+</div>
+</div>
+		
+</div>
+</div>
+
+
+    <!---------what we do---------------->
+ <div class="main-what port tnb animatedParent" id="port">
+  <div class="container" >
+              <div class="row" >
+      <div class="col-md-6 col-sm-6 col-xs-12">
+        <div class="abut-text abut-info animated fadeInRightShort go">
+          <div class="item-subtitle">LATEST portfolio</div>
+          <div class="middle-title"><h1>Let’s Explore Our
+<br>
+ <span>product portfolio</span></h1>
+                         
+        </div>
+      </div>
+    </div>
+      <div class="col-md-6 col-sm-6 col-xs-12 animated fadeInLeftShort go">
+        <div class="abut-text1">
+          <div class="about-img">
+          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+          <!--<img alt="about" class="img-about" src="images/about-2.jpg">-->
+      </div>
+          </div>
+        </div>
+      
+</div>
+
+  <div class="testimonial">
+
+    <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv1.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Mineral Roof Tiles
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    <!-- <a class="more_btn animated fadeInDownShort go" href="services.php">Read More</a>-->
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv2.jpg') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Imported Clay Roof
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+     
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv3.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Roofing Shingles
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+   
+
+      </div>
+    </div>
+  </div>
+  </div>
+  <div class="row">
+      <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv4.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Membrane Water Proffing
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+     
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv5.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Damage Roofing
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4 col-xs-12">
+    <div class="servicesec">
+      <div class="servimg">
+         <img alt="services" src="{{ url_for('static', filename='images/serv6.png') }}">
+      </div>
+      <div class="servicetxt">
+        <h4>Roofing System Components
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p>
+    
+
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+</div>
+
+                    
+
+
+<div class="whyus1 tnb animatedParent" id="whyus1">
+  <div class="container">
+    
+    <div class="row">
+                
+
+<div class="big-title"><div class="item-subtitle" style="text-align: center!important;">Why Choose us</div><h1>Modern <span>Roofing Technology</span></h1><p style="text-align: center;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.<br> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</p></div>
+
+<div class="col-md-3 col-sm-3 col-xs-12">
+  <div class="servicetxt1">
+        <h4>Wooden Frame
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing </p>
+    
+
+      </div><br><br>
+      <div class="servicetxt1">
+        <h4>Pitched Roofing
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing</p>
+    
+
+      </div>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-12">
+  <img class="img-fluid" width="100%" src="{{ url_for('static', filename='images/service-h3-image.png') }}">
+</div>
+<div class="col-md-3 col-sm-3 col-xs-12">
+  <div class="servicetxt1">
+        <h4>LeakProof System
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing </p>
+    
+
+      </div><br><br>
+      <div class="servicetxt1">
+        <h4>CoolRoof System
+        </h4>
+        <p>Lorem Ipsum is simply dummy text of the printing</p>
+    
+
+      </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="callus  animatedParent" id="callus">
+  <div class="container">
+    
+    <div class="row tnb">
+      <div class="background-overlay"></div>
+      <div class=" col-md-6 col-sm-12 col-xs-12 animated fadeInLeftShort go">
+        <div class="headcall"><h1>Need Any Roofing Help?</h1>
+          <p><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;&nbsp;8830721250</p></div>
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="main-footer  animatedParent">
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="footer-text animated fadeInUpShort go">
+        
+        <div class="widget widget_text">
+                        <div class="textwidget">
+                            <p class="margin-bottom-25" style="text-align: center;">
+                                <img src="{{ url_for('static', filename='images/foo.png') }}" alt="Image">
+                            </p>
+                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        </div>
+                    </div>
+                   
+      </div>
+    </div><!-- col-4 -->
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="footer-text animated fadeInUpShort go" id="quiklink">
+        <h5>Quick links</h5>
+        <ul>
+          <li><a href="{{ url_for('index.index') }}"> Home</a></li>
+          <li><a href="#about1"> About Us</a></li>
+          <li><a href="#brands">Our Brands</a></li>
+          <li><a href="#port">Our Products</a></li>
+                    <li><a href="#callus"> Contact Us</a></li>
+        </ul>
+      </div>
+    </div><!-- col-4 -->
+    <div class="col-md-4 col-sm-4 col-xs-12">
+      <div class="footer-text animated fadeInUpShort go">
+        <h5>Address</h5>
+        <ul>
+          
+          <!--<li><i class="fa fa-whatsapp" aria-hidden="true"></i> 840 880 0301</li>-->
+          <li><i class="fa fa-envelope-o" aria-hidden="true"></i> sgenterprize@gmail.com </li>
+          
+        </ul>
+        <div class="widget widget_socials">
+                        <div class="socials clearfix">
+                            <div class="icon"><a class="active" target="_blank" ><i class="fa fa-facebook"></i></a></div>
+                            <div class="icon"><a target="_blank" ><i class="fa fa-twitter"></i></a></div>
+                           <div class="icon"><a target="_blank" ><i class="fa fa-instagram"></i></a></div>
+                            <div class="icon"><a target="_blank"><i class="fa fa-linkedin"></i></a></div>
+                            
+                        </div>
+                    </div>
+      </div>
+    </div><!-- col-4 -->
+
+  </div>
+  
+</div>  
+
+  <div class="copy-right">
+  <div class="container animated fadeInUpShort go"> 
+    <div class="row"> 
+      
+      
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+        <div class="copy-right-left animated fadeInLeftShort go">
+        <p>©2023 - <span>SG Enterprises </span>| All right reserved</p>
+      </div>
+                  </div>
+      <div class="col-md-6 col-lg-6 col-sm-12 col-xs-12">
+ <div class="copy-right-left float-right animated fadeInLeftShort go">
+        <p>Developed by <a href="https://platominds.com/"><span>Platominds Services Pvt. Ltd.</span></a></p>
+      </div>
+       
+                  </div>
+    </div>
+  </div>
+  </div>
+<!--<div class="round-shape-four"></div>-->
+</div><!-- main-footer -->
+
+
+
+<a href="https://wa.me/919970992432"
+   class="whatsapp-float"
+   target="_blank"
+   aria-label="Chat on WhatsApp">
+  <i class="fa fa-whatsapp" aria-hidden="true"></i>
+
+</a>
+<!-- top btn -->
+<button onclick="topFunction()" id="back-to-top-btn" title="Go to top"><img src="{{ url_for('static', filename='images/top_button.png') }}"></button>
+<!-- top btn -->
+ 
+
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}" type="text/javascript"></script>
+<script src="{{ url_for('static', filename='js/slim.min.js') }}" type="text/javascript"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/script.js') }}" type="text/javascript"></script> 
+<!-- bxslider -->
+
+  <script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+  <!-- <script src="js/script.js" type="text/javascript"></script>  -->
+  
+<!-- bxslider -->
+<!-- write script to toggle class on scroll -->
+<script>
+/*var counterContainer = document.querySelector(".website-counter");
+
+var visitCount = localStorage.getItem("page_view");
+
+// Check if page_view entry is present
+if (visitCount) {
+  visitCount = Number(visitCount) + 1;
+  localStorage.setItem("page_view", visitCount);
+} else {
+  visitCount = 1;
+  localStorage.setItem("page_view", 1);
+}
+counterContainer.innerHTML = visitCount;*/
+
+
+$(window).scroll(function() {
+    if ($(this).scrollTop() > 1){  
+        $('header').addClass("sticky");
+    }
+    else{
+        $('header').removeClass("sticky");
+    }
+});
+</script>
+
+<!-- loader script -->
+
+<script>
+  $(window).on('load', function() { // makes sure the whole site is loaded 
+  $('#status').fadeOut(); // will first fade out the loading animation 
+  $('#preloader').delay(250).fadeOut('slow'); // will fade out the white DIV that covers the website. 
+  $('body').delay(250).css({'overflow':'visible'});
+
+ (function ($) {
+  $.fn.countTo = function (options) {
+    options = options || {};
+    
+    return $(this).each(function () {
+      // set options for current element
+      var settings = $.extend({}, $.fn.countTo.defaults, {
+        from:            $(this).data('from'),
+        to:              $(this).data('to'),
+        speed:           $(this).data('speed'),
+        refreshInterval: $(this).data('refresh-interval'),
+        decimals:        $(this).data('decimals')
+      }, options);
+      
+      // how many times to update the value, and how much to increment the value on each update
+      var loops = Math.ceil(settings.speed / settings.refreshInterval),
+        increment = (settings.to - settings.from) / loops;
+      
+      // references & variables that will change with each update
+      var self = this,
+        $self = $(this),
+        loopCount = 0,
+        value = settings.from,
+        data = $self.data('countTo') || {};
+      
+      $self.data('countTo', data);
+      
+      // if an existing interval can be found, clear it first
+      if (data.interval) {
+        clearInterval(data.interval);
+      }
+      data.interval = setInterval(updateTimer, settings.refreshInterval);
+      
+      // initialize the element with the starting value
+      render(value);
+      
+      function updateTimer() {
+        value += increment;
+        loopCount++;
+        
+        render(value);
+        
+        if (typeof(settings.onUpdate) == 'function') {
+          settings.onUpdate.call(self, value);
+        }
+        
+        if (loopCount >= loops) {
+          // remove the interval
+          $self.removeData('countTo');
+          clearInterval(data.interval);
+          value = settings.to;
+          
+          if (typeof(settings.onComplete) == 'function') {
+            settings.onComplete.call(self, value);
+          }
+        }
+      }
+      
+      function render(value) {
+        var formattedValue = settings.formatter.call(self, value, settings);
+        $self.html(formattedValue);
+      }
+    });
+  };
+  
+  $.fn.countTo.defaults = {
+    from: 0,               // the number the element should start at
+    to: 0,                 // the number the element should end at
+    speed: 1000,           // how long it should take to count between the target numbers
+    refreshInterval: 100,  // how often the element should be updated
+    decimals: 0,           // the number of decimal places to show
+    formatter: formatter,  // handler for formatting the value before rendering
+    onUpdate: null,        // callback method for every time the element is updated
+    onComplete: null       // callback method for when the element finishes updating
+  };
+  
+  function formatter(value, settings) {
+    return value.toFixed(settings.decimals);
+  }
+}(jQuery));
+
+jQuery(function ($) {
+  // custom formatting example
+  $('.count-number').data('countToOptions', {
+  formatter: function (value, options) {
+    return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+  }
+  });
+  
+  // start all the timers
+  $('.timer').each(count);  
+  
+  function count(options) {
+  var $this = $(this);
+  options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+  $this.countTo(options);
+  }
+});
+
+});
+
+
+   
+
+</script>
+
+</body>
+
+</html>

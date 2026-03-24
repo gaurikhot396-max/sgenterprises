@@ -1,0 +1,208 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+
+.container{
+max-width:1100px;
+margin:25px auto;
+padding:0 10px;
+}
+
+.card{
+background:#fff;
+padding:25px;
+border-radius:10px;
+box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Header */
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.card-header h2{
+margin:0;
+font-size:20px;
+font-weight:600;
+color:#333;
+}
+
+/* Top Right Controls */
+
+.top-controls{
+display:flex;
+align-items:center;
+gap:8px;
+}
+
+.top-controls input{
+padding:6px 8px;
+border:1px solid #ddd;
+border-radius:5px;
+font-size:13px;
+width:170px;
+}
+
+.search-btn{
+background:#7367f0;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:5px;
+font-size:13px;
+cursor:pointer;
+}
+
+.csv-btn{
+background:#28a745;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:5px;
+font-size:13px;
+cursor:pointer;
+}
+
+/* Table */
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:13px;
+}
+
+thead{
+background:#f5f5f5;
+}
+
+th, td{
+padding:9px;
+border-bottom:1px solid #eee;
+text-align:left;
+}
+
+/* Action Buttons */
+
+.action-btn{
+border:none;
+padding:5px 8px;
+border-radius:4px;
+font-size:12px;
+cursor:pointer;
+margin-right:4px;
+}
+
+.edit-btn{
+background:#ffc107;
+color:#fff;
+}
+
+.delete-btn{
+background:#dc3545;
+color:#fff;
+}
+
+/* Footer */
+
+.footer{
+margin-top:10px;
+font-size:12px;
+color:#555;
+}
+
+</style>
+
+
+<div class="container">
+
+<div class="card">
+
+<div class="card-header">
+
+<h2>Roles & Permissions</h2>
+
+<div class="top-controls">
+
+<input type="text" placeholder="Search Role">
+
+<button class="search-btn">
+Search
+</button>
+
+<button class="csv-btn">
+Export CSV
+</button>
+
+</div>
+
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Role Name</th>
+<th>Permissions</th>
+<th>Users</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>1</td>
+<td>Admin</td>
+<td>24 Permissions</td>
+<td>1 Users</td>
+<td>
+<button class="action-btn edit-btn">Edit</button>
+<button class="action-btn delete-btn">Delete</button>
+</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Manager</td>
+<td>11 Permissions</td>
+<td>1 Users</td>
+<td>
+<button class="action-btn edit-btn">Edit</button>
+<button class="action-btn delete-btn">Delete</button>
+</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Sales Executive</td>
+<td>5 Permissions</td>
+<td>1 Users</td>
+<td>
+<button class="action-btn edit-btn">Edit</button>
+<button class="action-btn delete-btn">Delete</button>
+</td>
+</tr>
+
+</tbody>
+
+</table>
+
+<div class="footer">
+Displaying 1 to 3 of 3 entries
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

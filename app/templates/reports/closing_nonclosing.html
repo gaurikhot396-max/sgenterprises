@@ -1,0 +1,222 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+
+<style>
+.container{
+    max-width: 1000px;
+    margin: 25px auto;
+    padding: 0 10px;
+}
+
+.card{
+    background:#fff;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.card-header h2{
+    margin:0;
+    font-size:20px;
+    font-weight:600;
+    color:#333;
+}
+
+/* Top Buttons */
+.top-btns{
+    display:flex;
+    gap:10px;
+}
+
+.top-btns button{
+    padding:7px 16px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:13px;
+    color:white;
+}
+
+.csv-btn{
+    background:#28a745;
+}
+.pdf-btn{
+    background:#007bff;
+}
+
+/* Form Row */
+.form-row{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-bottom:15px;
+    align-items:flex-end;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+    flex:1;
+}
+
+.form-group label{
+    font-size:13px;
+    font-weight:600;
+    margin-bottom:5px;
+    color:#444;
+}
+
+.form-group input,
+.form-group select{
+    padding:7px 10px;
+    border:1px solid #ddd;
+    border-radius:5px;
+    font-size:13px;
+}
+
+.apply-btn{
+    background:#007bff;
+    color:white;
+    border:none;
+    padding:7px 16px;
+    border-radius:5px;
+    cursor:pointer;
+    font-size:13px;
+    height:36px;
+}
+
+/* Table */
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+thead{
+    background:#f7f7fb;
+}
+
+th,td{
+    padding:8px;
+    border-bottom:1px solid #eee;
+    text-align:left;
+    white-space:nowrap;
+}
+
+th{
+    font-weight:600;
+    color:#444;
+}
+
+tr:hover{
+    background:#fafafa;
+}
+
+.no-data{
+    text-align:center;
+    padding:20px;
+    color:#888;
+    font-size:13px;
+}
+
+</style>
+
+<div class="container">
+    <div class="card">
+
+        <div class="card-header">
+            <h2>Closing / Non-Closing Report</h2>
+           <div class="top-btns">
+
+<a href="{{ url_for('reports.closing_nonclosing', export='csv') }}">
+<button class="csv-btn">Export CSV</button>
+</a>
+
+<a href="{{ url_for('reports.closing_nonclosing', export='pdf') }}">
+<button class="pdf-btn">Print / PDF</button>
+</a>
+
+</div>
+        </div>
+
+        <!-- Form Row -->
+        <form>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Date From</label>
+                    <input type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Date To</label>
+                    <input type="date">
+                </div>
+
+                <div class="form-group">
+                    <label>Closing Type</label>
+                    <select>
+                        <option>All</option>
+                        <option>Closing</option>
+                        <option>Non-Closing</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <button class="apply-btn">Apply</button>
+                </div>
+            </div>
+        </form>
+
+        <!-- Table -->
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Closing Date</th>
+                        <th>Customer</th>
+                        <th>Source</th>
+                        <th>Assigned To</th>
+                        <th>Type</th>
+                        <th>Remark</th>
+                    </tr>
+                </thead>
+                <tbody>
+{% for e in enquiries %}
+<tr>
+<td>{{ loop.index }}</td>
+<td>{{ e.date }}</td>
+<td>{{ e.customer }}</td>
+<td>{{ e.source }}</td>
+<td>{{ e.assigned_user.username if e.assigned_user else "" }}</td>
+<td>{{ e.closed }}</td>
+<td>{{ e.remark }}</td>
+</tr>
+{% endfor %}
+
+{% if enquiries|length == 0 %}
+<tr>
+<td colspan="7" class="no-data">No data available</td>
+</tr>
+{% endif %}
+</tbody>
+            </table>
+            <p>Showing 0 to 0 of 0 entries</p>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
